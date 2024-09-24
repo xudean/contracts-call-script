@@ -1,10 +1,4 @@
 import {ethers} from "ethers";
-import {ABI} from "./abi/abi.js";
-import {registryABI} from "./abi/stake_registry_abi.js";
-import {rewardsCoordinatorAbi} from "./abi/rewardsCoornaditorAbi.js";
-import {serviceManagerAbi} from "./abi/serviceManagerAbi.js";
-import {stakeRegistryAbi} from "./abi/stakeRegistryAbi.js";
-import {workerMgtAbi} from "./abi/workerMgtAbi.js";
 import { randomBytes } from 'crypto';
 import {feeMgtAbi} from "./abi/feeMgtAbi.js";
 import './config.js';
@@ -12,17 +6,27 @@ import './config.js';
 const privateKey = process.env.PRIVATE_KEY;
 const wallet = new ethers.Wallet(privateKey);
 
-const provider = new ethers.providers.JsonRpcProvider('https://rpc-holesky.rockx.com'); // 
+const provider = new ethers.providers.JsonRpcProvider('https://eth-holesky.g.alchemy.com/v2/63xm51Uk6Vj9Z9HRNOBPXAmY_jN0fRlf'); //
 const signer = wallet.connect(provider);
 
 //https://github.com/Eoracle/eoracle-middleware/tree/develop/src
-const contractAddress = '0x1b6dc34B40743Ac59178a6114C73796111f77E79';
+const contractAddress = '0xfcde80f61B97FA974A5E1De2A2580A5843CaABE2';
 const contract = new ethers.Contract(contractAddress, feeMgtAbi, signer);
 
 async function callContractFunction() {
     //
-    const tx = await contract.getFeeTokens()
-    console.log(tx)
+    console.log('deployer is:',await signer.getAddress())
+    console.log('owner is:',await contract.owner())
+    // const tx = await contract.addFeeToken('ETH2', '0x0000000000000000000000000000000000000001',1_000_000_000_000_000);
+    // const recipent = await tx.wait();
+    // const rsp = await contract.getFeeTokens();
+    // console.log(rsp);
+
+    const tx = await contract.deleteFeeToken('ETH2');
+    const recipent = await tx.wait();
+    const rsp = await contract.getFeeTokens();
+    console.log(rsp);
+
     // const ramdom = generateRandomBytes32();
     // console.log(`ramdom:${ramdom}`)
     // const tx2 = await contract.checkWorkerRegistered(ramdom);

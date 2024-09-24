@@ -23,13 +23,16 @@ const contract = new ethers.Contract(contractAddress, dataMgtAbi, signer);
 async function callContractFunction() {
     //
     //getRestakeableStrategies
-    const workerMgt = await contract.getDataByOwner('0x5DDAbE5dB4cE8eb0A4F5C61e40Ec5EBc46460E9F');
-    for (let i = 0; i < workerMgt.length; i++) {
-        console.log(workerMgt[i][0]);
-        const dataInfo = await contract.getDataById(workerMgt[i][0]);
-        console.log(dataInfo.workerIds)
-
-    }
+    const tx = await contract.prepareRegistry({t: 2, n: 3});
+    const recipient = await tx.wait();
+    console.log(recipient);
+    // const workerMgt = await contract.getDataByOwner('0x5DDAbE5dB4cE8eb0A4F5C61e40Ec5EBc46460E9F');
+    // for (let i = 0; i < workerMgt.length; i++) {
+    //     console.log(workerMgt[i][0]);
+    //     const dataInfo = await contract.getDataById(workerMgt[i][0]);
+    //     console.log(dataInfo.workerIds)
+    //
+    // }
     // console.log(strategies)
 
 

@@ -38,6 +38,19 @@ export const workerMgtAbi =[
     },
     {
         "type": "function",
+        "name": "dataMgtAddr",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
         "name": "delegate",
         "inputs": [
             {
@@ -68,6 +81,25 @@ export const workerMgtAbi =[
                 "name": "name",
                 "type": "string",
                 "internalType": "string"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool",
+                "internalType": "bool"
+            }
+        ],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "deregisterOperator",
+        "inputs": [
+            {
+                "name": "quorumNumbers",
+                "type": "bytes",
+                "internalType": "bytes"
             }
         ],
         "outputs": [
@@ -113,19 +145,6 @@ export const workerMgtAbi =[
                 "name": "",
                 "type": "bytes32[]",
                 "internalType": "bytes32[]"
-            }
-        ],
-        "stateMutability": "view"
-    },
-    {
-        "type": "function",
-        "name": "getNonce",
-        "inputs": [],
-        "outputs": [
-            {
-                "name": "",
-                "type": "uint256",
-                "internalType": "uint256"
             }
         ],
         "stateMutability": "view"
@@ -332,19 +351,6 @@ export const workerMgtAbi =[
     },
     {
         "type": "function",
-        "name": "getWorkerIds",
-        "inputs": [],
-        "outputs": [
-            {
-                "name": "",
-                "type": "bytes32[]",
-                "internalType": "bytes32[]"
-            }
-        ],
-        "stateMutability": "view"
-    },
-    {
-        "type": "function",
         "name": "getWorkers",
         "inputs": [],
         "outputs": [
@@ -526,6 +532,11 @@ export const workerMgtAbi =[
                 "name": "_registryCoordinator",
                 "type": "address",
                 "internalType": "contract PADORegistryCoordinator"
+            },
+            {
+                "name": "_dataMgtAddr",
+                "type": "address",
+                "internalType": "address"
             },
             {
                 "name": "networkOwner",
@@ -812,21 +823,15 @@ export const workerMgtAbi =[
     },
     {
         "type": "function",
-        "name": "selectWorkers",
+        "name": "setDataMgtAddr",
         "inputs": [
             {
-                "name": "n",
-                "type": "uint256",
-                "internalType": "uint256"
+                "name": "_dataMgtAddr",
+                "type": "address",
+                "internalType": "address"
             }
         ],
-        "outputs": [
-            {
-                "name": "",
-                "type": "bytes32[]",
-                "internalType": "bytes32[]"
-            }
-        ],
+        "outputs": [],
         "stateMutability": "nonpayable"
     },
     {
@@ -889,6 +894,19 @@ export const workerMgtAbi =[
             }
         ],
         "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "version",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "pure"
     },
     {
         "type": "function",
@@ -1060,13 +1078,13 @@ export const workerMgtAbi =[
     },
     {
         "type": "event",
-        "name": "SelectWorkers",
+        "name": "SelectDataWorkers",
         "inputs": [
             {
-                "name": "ramdom",
-                "type": "uint256",
-                "indexed": false,
-                "internalType": "uint256"
+                "name": "dataId",
+                "type": "bytes32",
+                "indexed": true,
+                "internalType": "bytes32"
             },
             {
                 "name": "workerIds",
