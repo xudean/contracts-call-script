@@ -1,4 +1,4 @@
-import {ethers} from "ethers";
+import {BigNumber, ethers} from "ethers";
 import {ABI} from "../abi/BrevisRequest.js";
 import {configDotenv} from "dotenv";
 
@@ -20,13 +20,19 @@ async function callContractFunction() {
     const owner = await contract.owner()
     console.log(`owner:${owner}`)
     const proofId = '0x1f90985cff388a590f488e3f89cd9634c7781c72731c995dc9b2a5cc50beb009';
-    const nonce = 1727165434;
+    const nonce = 1727170491;
     const address = await signer.getAddress();
     const callBackAddress = '0x26D9AFB34eE9D1e860607f1D4c06d6Fc8E66d67E';
     const option = 0;
-    const tx = await contract.sendRequest(proofId, nonce, '0x5DDAbE5dB4cE8eb0A4F5C61e40Ec5EBc46460E9F', [callBackAddress,0], option)
-    await tx.wait()
+    const tx = await contract.sendRequest(proofId,
+        nonce,
+        '0x5DDAbE5dB4cE8eb0A4F5C61e40Ec5EBc46460E9F',
+        [callBackAddress,1],
+        option,{ gasPrice: BigNumber.from('50000000000'), gasLimit: BigNumber.from('100000') })
     console.log(tx)
+    console.log("---------------------")
+    const recipent = await tx.wait()
+    console.log(recipent)
 }
 
 

@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@primuslabs/zktls-js-sdk": "^0.2.5",
     "dotenv": "^16.4.5",
     "ethers": "^5.7.2",
     "graphql-request": "^7.1.0"
